@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/api/:path*", "destination": "https://eval-app-backend.onrender.com/api/:path*" }
+  ]
+}
