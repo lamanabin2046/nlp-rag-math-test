@@ -104,9 +104,14 @@ export default function TeacherEval() {
         <div className="bg-white border border-slate-200 rounded-2xl p-5 mb-5 shadow-sm">
           <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-2">Question</p>
           <p className="text-slate-800 text-sm leading-relaxed">{rag.question}</p>
+          {rag.figure_svg && (
+            <div className="mt-4 p-3 bg-slate-50 rounded-xl border border-slate-200 flex justify-center"
+              dangerouslySetInnerHTML={{ __html: rag.figure_svg }}
+            />
+          )}
         </div>
 
-        {/* Side by side — equal height cards */}
+        {/* Side by side solutions */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4 items-start">
           {[
             { item: rag,  label: "Solution A", sublabel: "AI with textbook reference",
@@ -119,19 +124,16 @@ export default function TeacherEval() {
             <div key={label}
               className={`bg-white border-2 ${border} rounded-2xl shadow-sm flex flex-col`}>
 
-              {/* Card header */}
               <div className="flex items-center gap-2 px-5 pt-4 pb-3 border-b border-slate-100">
                 <span className={`text-xs px-2.5 py-1 rounded-full font-semibold ${badge}`}>{label}</span>
                 <span className="text-xs text-slate-400">{sublabel}</span>
               </div>
 
-              {/* Solution — large scrollable area */}
               <div className="overflow-y-auto px-5 py-4"
                 style={{ minHeight: "380px", maxHeight: "480px" }}>
                 <MathRenderer text={item.response || "No response generated."} />
               </div>
 
-              {/* Grading section — pinned at bottom, same height on both cards */}
               <div className="px-5 pb-5 pt-4 border-t border-slate-100 mt-auto">
                 <p className="text-xs font-semibold text-slate-600 mb-2">Grade {label}:</p>
                 <div className="grid grid-cols-2 gap-2">
